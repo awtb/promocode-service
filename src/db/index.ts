@@ -1,7 +1,4 @@
-import { resolve } from "node:path";
-
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
-import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
 
 import { env } from "promocode-service/config/env.js";
@@ -15,12 +12,6 @@ const pool = new Pool({
 });
 
 export const database = drizzle(pool, { schema });
-
-export const applyMigrations = async (): Promise<void> => {
-  await migrate(database, {
-    migrationsFolder: resolve(process.cwd(), "drizzle"),
-  });
-};
 
 export const closeDbConnection = async (): Promise<void> => {
   await pool.end();
