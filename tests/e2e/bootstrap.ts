@@ -16,10 +16,11 @@ const POSTGRES_PORT = 5432;
 const POSTGRES_USER = "postgres";
 const POSTGRES_PASSWORD = "postgres";
 const POSTGRES_DB = "promocode_service";
+const POSTGRES_IMAGE = "public.ecr.aws/docker/library/postgres:16-alpine";
 const migrationsFolder = new URL("../../drizzle", import.meta.url);
 
 const startPostgresContainer = async (): Promise<StartedTestContainer> => {
-  return new GenericContainer("postgres:16-alpine")
+  return new GenericContainer(POSTGRES_IMAGE)
     .withEnvironment({
       POSTGRES_DB,
       POSTGRES_USER,
