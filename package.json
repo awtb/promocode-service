@@ -13,11 +13,9 @@
     "start:dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/src/server.js",
-    "start:prod": "pnpm build && NODE_ENV=production pnpm db:migrate:runtime && NODE_ENV=production node dist/src/server.js",
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:migrate:runtime": "node dist/src/scripts/migrate.js",
     "db:push": "drizzle-kit push",
     "test": "vitest",
     "test:e2e": "vitest run"
