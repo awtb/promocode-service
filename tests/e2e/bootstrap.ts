@@ -16,6 +16,7 @@ const POSTGRES_PORT = 5432;
 const POSTGRES_USER = "postgres";
 const POSTGRES_PASSWORD = "postgres";
 const POSTGRES_DB = "promocode_service";
+const E2E_DATABASE_URL_ENV = "E2E_DATABASE_URL";
 const POSTGRES_IMAGE = "public.ecr.aws/docker/library/postgres:16-alpine";
 const migrationsFolder = new URL("../../drizzle", import.meta.url);
 
@@ -57,8 +58,10 @@ const migrateDatabase = async (databaseUrl: string) => {
 };
 
 export const startE2EApp = async (): Promise<E2EContext> => {
-  const container = await startPostgresContainer();
-  const databaseUrl = getDatabaseUrl(container);
+  const externalDatabaseUrl = process.env[E2E_DATABASE_URL_ENV];
+  const container = externalDatabaseUrl ? null : await startPostgresContainer();
+  const databaseUrl =
+    externalDatabaseUrl ?? getDatabaseUrl(container as StartedTestContainer);
 
   process.env.NODE_ENV = "test";
   process.env.DATABASE_URL = databaseUrl;
@@ -88,7 +91,9 @@ export const startE2EApp = async (): Promise<E2EContext> => {
     },
     shutdown: async () => {
       await app.close();
-      await container.stop();
+      if (container) {
+        await container.stop();
+      }
     },
   };
 };
