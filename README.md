@@ -15,6 +15,11 @@ REST API for a promocode system built with **Node.js**, **TypeScript**, **Fastif
 
 ## Tech stack
 
+- Node.JS
+- TypeScript
+- Fastify
+- Drizzle 
+- PostgreSQL
 
 ### 1. Install dependencies
 ```bash
