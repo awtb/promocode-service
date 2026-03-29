@@ -12,6 +12,16 @@ REST API for a promocode system built with **Node.js**, **TypeScript**, **Fastif
 - prevent activation beyond the configured limit
 - prevent activation of expired promocodes
 
+## Endpoints
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `GET` | `/promocodes` | List promocodes with pagination support. |
+| `GET` | `/promocodes/:id` | Get a single promocode by its UUID. |
+| `POST` | `/promocodes` | Create a new promocode. |
+| `POST` | `/promocodes/:code/activate` | Activate a promocode for an email address. |
+
+<img src=".github/demo/image.png" alt="Swagger UI screenshot" width="900">
 
 ## Tech stack
 
@@ -51,8 +61,6 @@ pnpm db:migrate
 ```bash
 pnpm dev
 ```
-
-Swagger UI available at: `/docs`
 
 ## Testing
 
